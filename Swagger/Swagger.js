@@ -8,6 +8,10 @@ const doc = {
       description: 'Агент для хранения файлов, полученных от пользователей и со сторонних API написанный на NodeJS',
     },
     definitions: {
+        UrlData:{
+            $url: "http://185.177.219.117:8005",
+            $types:["buildings", "appeals"]
+        },
         //
         UserResponse:{
             $refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey3JlbWFpbCI6InNva29sb3Zyb21hbjI1NkBnbWFpbC5jb20iLCJpZCI6IjY0Njc3YjY2MzdkNTljN2QyYTE4ZDU4MyIsInVzZXJuYW1lIjoi0KHQvtC60L7Qu9C-0LIg0KDQvtC80LDQvSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0ODQ4MjkzLCJleHAiOjE2ODY5MjE4OTN9.nvOexFSAQnIFeqT9nv73QnHDWFhoqXKim7TJObvnm_o",

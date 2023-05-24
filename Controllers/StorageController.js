@@ -28,7 +28,9 @@ class StorageController
     {
         /* #swagger.description = 'Метод для получения файла по названию из файловой системы хранилища'
             
-          #swagger.consumes = ['multipart/form-data']  
+            #swagger.parameters['filename'] ={
+                schema: 'FileAdressPlusDate.xlsx'
+            }
 
             #swagger.responses[200] = {
             description: 'Файл, если есть',
@@ -53,6 +55,20 @@ class StorageController
 
     async DownloadByUrl(req, res, next)
     {
+         /* #swagger.description = 'Метод, выполняющий загрузку файлов таблиц с данными со стороннего сервиса, адрес которого указан в запросе. Типы файлов, которые необходимо искать на сервисе передаются массивом вутри запроса.'
+            
+            #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'Адрес сервиса, с которого будут получаться данные и типы получаемых таблиц',
+                schema: { $ref: '#/definitions/UrlData'}
+            }
+
+            #swagger.responses[200] = {
+            description: 'Имена файлов в файловой системе хранилища',
+            schema: ['FirstFileAdressPlusDate.xlsx', 'SecondFileAdressPlusDate.xlsx']
+        } 
+        */
+
         const {url} = req.body
 
         const {types} = req.body
@@ -64,6 +80,14 @@ class StorageController
 
     async List(req, res, next)
     {
+        /* #swagger.description = 'Метод для получения имен таблиц в файловой системе хранилища.'
+
+            #swagger.responses[200] = {
+            description: 'Имена файлов в файловой системе хранилища',
+            schema: ['FirstFileAdressPlusDate.xlsx', 'SecondFileAdressPlusDate.xlsx']
+        } 
+        */
+
         res.json(StorageService.List())
     }
 }

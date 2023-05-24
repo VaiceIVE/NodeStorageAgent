@@ -43,9 +43,6 @@
     "/file/{filename}": {
       "get": {
         "description": "Метод для получения файла по названию из файловой системы хранилища",
-        "consumes": [
-          "multipart/form-data"
-        ],
         "produces": [
           "attachment; filename="
         ],
@@ -54,7 +51,11 @@
             "name": "filename",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "schema": {
+              "type": "string",
+              "example": "FileAdressPlusDate.xlsx"
+            }
           }
         ],
         "responses": {
@@ -73,44 +74,86 @@
     },
     "/url": {
       "post": {
-        "description": "",
+        "description": "Метод, выполняющий загрузку файлов таблиц с данными со стороннего сервиса, адрес которого указан в запросе. Типы файлов, которые необходимо искать на сервисе передаются массивом вутри запроса.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Адрес сервиса, с которого будут получаться данные и типы получаемых таблиц",
             "schema": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "example": "any"
-                },
-                "types": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/UrlData"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Имена файлов в файловой системе хранилища",
+            "schema": {
+              "type": "array",
+              "example": [
+                "FirstFileAdressPlusDate.xlsx",
+                "SecondFileAdressPlusDate.xlsx"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/list": {
       "get": {
-        "description": "",
+        "description": "Метод для получения имен таблиц в файловой системе хранилища.",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Имена файлов в файловой системе хранилища",
+            "schema": {
+              "type": "array",
+              "example": [
+                "FirstFileAdressPlusDate.xlsx",
+                "SecondFileAdressPlusDate.xlsx"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     }
   },
   "definitions": {
+    "UrlData": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "http://185.177.219.117:8005"
+        },
+        "types": {
+          "type": "array",
+          "example": [
+            "buildings",
+            "appeals"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "url",
+        "types"
+      ]
+    },
     "UserResponse": {
       "type": "object",
       "properties": {
