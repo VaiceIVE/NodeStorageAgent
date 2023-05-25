@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8005
 const app = express()
 
 app.use(express.static('./Storage/'))
-app.use(cors({credentials: true, origin:[]}))
+app.use(cors({credentials: true, origin:['http://127.0.0.1:5173']}))
 app.use(express.json())
 
 
